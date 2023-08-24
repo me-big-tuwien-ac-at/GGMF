@@ -1,0 +1,5 @@
+mvn deploy:deploy-file -DgroupId=com.archimatetool -DartifactId=org.opengroup.archimate.xmlexchange -Dversion=4.9.2-SNAPSHOT -Durl=file:./local-maven-repo/ -DrepositoryId=local-maven-repo -DupdateReleaseInfo=true -Dfile="C:/Users/Jan/Dropbox/TU/6. Diplomarbeit/Laranjo.KGbasedModularization/02. Application/backendservice/local-maven-repo/org.opengroup.archimate.xmlexchange.jar" -Dpackaging=jar
+
+mvn deploy:deploy-file -DgroupId=com.archimatetool -DartifactId=com.archimatetool.model -Dversion=4.9.2-SNAPSHOT -Durl=file:./local-maven-repo/ -DrepositoryId=local-maven-repo -DupdateReleaseInfo=true -Dfile="C:/Users/Jan/Dropbox/TU/6. Diplomarbeit/Laranjo.KGbasedModularization/02. Application/backendservice/local-maven-repo/com.archimatetool.model.jar" -Dpackaging=jar
+
+mvn deploy:deploy-file -DgroupId=com.archimatetool -DartifactId=com.archimatetool.editor -Dversion=4.9.2-SNAPSHOT -Durl=file:./local-maven-repo/ -DrepositoryId=local-maven-repo -DupdateReleaseInfo=true -Dfile="C:/Users/Jan/Dropbox/TU/6. Diplomarbeit/Laranjo.KGbasedModularization/02. Application/backendservice/local-maven-repo/com.archimatetool.editor.jar" -Dpackaging=jar

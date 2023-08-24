@@ -1,0 +1,1 @@
+{"ast":null,"code":"export var Environment = {\n  backendUrl: 'http://localhost:8080/'\n};","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

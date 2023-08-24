@@ -1,0 +1,94 @@
+{
+    "geneticAlgorithmSelections": [
+        {"chromosomeEncoding": "LLE", "singleObjectiveSurvivorSelector": ["RouletteWheelSelector"], "multiObjectiveSurvivorSelector": ["UFTournamentSelector"],  "singleObjectiveOffspringSelector": ["TournamentSelector"], "multiObjectiveOffspringSelector": ["TournamentSelector"], "mutations": ["GraftMutator"], "crossovers": ["GroupCrossover"]}
+    ],
+    "displayedEdgeWeightColumns": ["name", "weight", "deleteEdgeWeight"],
+    "edgeWeights": [
+        {"name": "dependency",        "weight": 1.0},
+        {"name": "common",            "weight": 2.0},
+        {"name": "qualified",         "weight": 3.0},
+        {"name": "associationclass",  "weight": 4.0},
+        {"name": "aggregation",       "weight": 5.0},
+        {"name": "composition",       "weight": 6.0},
+        {"name": "generalization",    "weight": 7.0},
+        {"name": "binding",           "weight": 8.0},
+        {"name": "realization",       "weight": 9.0}
+    ],
+    "displayedObjectiveColumns": ["objectiveType", "objectiveName", "objectiveWeight", "isSelected"],
+    "numberOfElementsPerModule": 7,
+    "isUseWeightedSumMethod": false,
+    "objectives": [
+        {"type":"Model", "name": "Maximise cohesion", "objectiveWeight": 1.0, "isSelected": true, "objectiveType": "MAXIMISE_COHESION"},
+        {"type":"Model", "name": "Maximise average cohesion", "objectiveWeight": 1.0, "isSelected": false, "objectiveType": "MAXIMISE_AVG_COHESION"},
+        {"type":"Model", "name": "Maximise median cohesion", "objectiveWeight": 1.0, "isSelected": false, "objectiveType": "MAXIMISE_MEDIAN_COHESION"},
+        {"type":"Model", "name": "Minimise coupling", "objectiveWeight": 1.0, "isSelected": true, "objectiveType": "MINIMISE_COUPLING"},
+        {"type":"Model", "name": "Minimise standard deviation of vertex size per module", "objectiveWeight": 1.0, "isSelected": true, "objectiveType": "BALANCEDNESS"},
+        {"type":"Model", "name": "Minimise difference between the optimal number of modules and the resulting number of modules", "objectiveWeight": 1.0, "isSelected": false, "objectiveType": "OPTIMAL_NUMBER_OF_MODULES"},
+        {"type":"Model", "name": "Minimise the number of modules with non optimal size of vertices", "objectiveWeight": 1.0, "isSelected": true, "objectiveType": "OPTIMAL_SIZED_MODULE"},
+        {"type":"Model", "name": "Minimise the number of smells", "objectiveWeight": 1.0, "isSelected": true, "objectiveType": "MIN_SMELLS"},
+        {"type":"Entropy", "name": "Maximise average string similarity per module", "objectiveWeight": 1.0, "isSelected": false, "objectiveType": "MAX_AVG_STRING_SIMILARITY_PER_MODULE"},
+        {"type":"Entropy", "name": "Maximise average string difference between modules", "objectiveWeight": 1.0, "isSelected": false, "objectiveType": "MAX_STRING_DIFFERENCE_BETWEEN_MODULES"},
+        {"type":"Semantics", "name": "Maximise the semantic similarity within modules", "objectiveWeight": 1.0, "isSelected": false, "objectiveType": "MAX_STRING_SEMANTIC_SIMILARITY_WITHIN_MODULES_OBJECTIVE"},
+        {"type":"Semantics", "name": "Maximise the semantic difference between the modules", "objectiveWeight": 1.0, "isSelected": false, "objectiveType": "MAX_STRING_SEMANTIC_DIFFERENCE_BETWEEN_MODULES_OBJECTIVE"},
+        {"type":"Graph", "name": "Maximise average edge betweenness centrality per module", "objectiveWeight": 1.0, "isSelected": false, "objectiveType": "AVERAGE_EDGE_BETWEENNESS_CENTRALITY_PER_MODULE"},
+        {"type":"Graph", "name": "Maximise average closeness centrality per module", "objectiveWeight": 1.0, "isSelected": false, "objectiveType": "AVERAGE_CLOSENESS_CENTRALITY_PER_MODULE"},
+        {"type":"Graph", "name": "Maximise median closeness centrality per module", "objectiveWeight": 1.0, "isSelected": false, "objectiveType": "MEDIAN_CLOSENESS_CENTRALITY_PER_MODULE"},
+        {"type":"Graph", "name": "Maximise modularity score (on undirected graph)", "objectiveWeight": 1.0, "isSelected": false, "objectiveType": "MAX_MODULARITY"}
+    ],
+    "metaModels": [
+        {"id": 0, "label": "Papyrus UML", "conceptualModels": ["UML"]},
+        {"id": 1, "label": "Archi", "conceptualModels": ["Archimate"]},
+        {"id": 2, "label": "ADOxx", "conceptualModels": ["BPMN", "EPC", "ER", "OWL", "UML"]}
+    ],
+    "initialGeneticAlgorithmParameter": {
+        "numberOfGenerations": 400,
+        "countPopulation": 25,
+        "mutationProbability": 0.5,
+        "crossoverProbability": 0.8,
+        "convergenceRate": 0.8,
+        "convergedGeneRate": 1.0,
+        "tournamentSize": 17
+    },
+    "initialParetoSetParameter": {
+        "minimumParetoSetSize": 3,
+        "maximumParetoSetSize": 20
+    },
+    "initialMutationWeightParameter": {
+        "splitModulesWeight": 1,
+        "combineModulesWeight": 1,
+        "moveElementsBetweenModulesWeight": 1
+    },
+    "uiSettings": {
+        "selectedConceptualModelIndex": 0,
+        "selectedMetaModelIndex": 0,
+        "isUseCustomEdgeWeights": false,
+        "isShowEdgeWeightTable": true,
+        "isShowObjectivesTable": false
+    },
+    "tooltips": {
+        "chromosomeEncoding": "The type of encoding used for the chromosome (Changes also crossover and mutation)",
+        "offspringSelection": "The selection operator used to select the offspring chromosomes during each generation",
+        "survivorSelection": "The selection operator used to select the surviving chromosomes after each generation",
+        "crossoverSelection": "The type of crossover operation",
+        "mutationSelection": "The type of mutation operation",
+        "populationSize": "The size of modularisation solutions per generation.",
+        "mutationProbability": "The probability of mutating a chromosome and changing a modularisation solution of a knowledge graph.",
+        "crossoverProbability": "The probability of starting the crossover process for two modularisation solutions. During this process modularisation information are exchanged or combined while preserving the linear linkage encoding constraints.",
+        "tournamentSize": "The number of chromosomes who compete in a tournament and are selected for the alteration process. The winner is determined by the best fitness.",
+        "numberOfGenerations": "The number of iterations until the genetic algorithms terminates.",
+        "minimumParetoSetSize": "The possible minimum size of Pareto optimal solutions set (The Pareto set size can be lower than the given minimum size if the Pareto set contains duplicate  solutions. Duplicate solutions are removed).",
+        "maximumParetoSetSize": "The possible maximum size of Pareto optimal solutions set.",
+        "splitModulesWeight": "The weight of splitting the random module during the mutation process (Higher weights increases the probability of splitting modules).",
+        "combineModulesWeight": "The weight of combining the random module during the mutation process (Higher weights increases the probability of combining modules).",
+        "moveElementsBetweenModulesWeight": "The weight of moving a modularisable element from one module to another module during the mutation process (Higher weights increases the probability of moving modularisable elements).",
+        "conceptualModelType": "The conceptual model type of the file which is uploaded.",
+        "metaModelType": "The meta model type of the file which is uploaded.",
+        "dtdFile": "The document type description file.",
+        "numberOfElementsPerModule": "The targeted number of elements per module.",
+        "isUseCustomEdgeWeights": "The flag to determine if the edge weights should customised. If this is true, table with edges and weights is displayed.",
+        "edgeWeightTable": "The table of edges and their weights. The weights for the type of edges is used for the objectives that utilise information from edges.",
+        "isUseWeightedSumMethod": "The flag to determine if the weighted sum method is used for the list of objectives.",
+        "objectiveTable": "The table of objectives used to determine the fitness of a modularisation solution.",
+        "conceptualModelFile": "The file containing the conceptual model."
+    }
+}

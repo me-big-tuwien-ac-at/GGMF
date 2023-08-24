@@ -1,0 +1,31 @@
+FROM tiangolo/uwsgi-nginx:python3.10
+
+# URL under which static (not modified by Python) files will be requested
+# It will be served by Nginx directly without being handled by uWSGI
+# Specific to this Docker image
+ENV STATIC_URL /static
+# Absolute path in where the static files wil be
+ENV STATIC_PATH /var/www/app/static
+
+# Copy and install requirements
+COPY requirements.txt /var/www/requirements.txt
+RUN pip install --no-cache-dir -r /var/www/requirements.txt
+
+# Copy application files to working directory
+COPY  ./app /app
+WORKDIR /app
+
+# Make /app/* available to be imported by Python globally
+ENV PYTHONPATH=/app
+
+# Move the base entrypoint to reuse it
+RUN mv /entrypoint.sh /uwsgi-nginx-entrypoint.sh
+# Copy the entrypoint that will generate Nginx additional configs
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Runs instructions of entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+
+# Runs the start script provided in the parent image uwsgi-nginx
+CMD ["/start.sh"]

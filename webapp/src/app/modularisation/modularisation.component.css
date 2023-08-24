@@ -1,0 +1,65 @@
+.section-title {
+    font-size: large;
+    margin: 2% 0 2% 0;
+}
+
+.modularisation-form {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 2rem;
+    align-items: center;
+    margin: 0 0 2% 0;
+}
+
+.edge-weight-table {
+    width: 80%;
+}
+
+.hide-edge-weight-table-button {
+    margin-left: 1%;
+}
+
+.edge-weight-weight-input {
+    width:10%;
+}
+
+.add-edge-weight {
+    margin: 2%;
+}
+
+.add-edge-weight-element {
+    margin: 1%;
+}
+
+.objectives-form {
+    display: grid;
+    margin:1%;
+}
+
+.show-objectives-button {
+    width:20%;
+}
+
+#modulsarise-button {
+    border: none;
+    background-color: red;
+    color: white;
+    font-size: large;
+    text-align: center;
+    padding: 5% 2% 5% 2%;
+}
+
+.alert {
+    padding: 0%;
+    margin: 0%;
+}
+
+#modulsarise-button:disabled {
+  background-color: #cccccc;
+  color: #666666;
+}
+
+#dtdFileInput:disabled {
+    background-color: #cccccc;
+    color: #666666;
+}

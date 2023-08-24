@@ -1,0 +1,360 @@
+<label class="section-title">Genetic Algorithm Selection</label>
+<div class="modularisation-form">
+  <label for="chromosomeEncoding">Chromosome Encoding</label>
+  <select class="form-control" (change)="onChangeGeneticAlgorithmSelection($event.target.value)" [disabled]="!isModelTypeRequired()"
+  [(matTooltip)]="tooltips.chromosomeEncoding">
+    <option *ngFor="let geneticAlgorithmSelection of geneticAlgorithmSelections;let i = index" [value]="i">{{geneticAlgorithmSelection.chromosomeEncoding}}</option>
+  </select>
+  <div class="errorMsgColumn"></div>
+
+  <label for="offspringSelection">Offspring Selection</label>
+  <select class="form-control" (change)="onChangeOffspringSelection($event.target.value)" [disabled]="!isModelTypeRequired()"
+  [(matTooltip)]="tooltips.offspringSelection">
+    <option *ngFor="let offspringSelection of offspringSelection();let i = index" [value]="i">{{offspringSelection}}</option>
+  </select>
+  <div class="errorMsgColumn"></div>
+
+  <label for="survivorSelection">Survivor Selection</label>
+  <select class="form-control" (change)="onChangeSurvivorSelection($event.target.value)" [disabled]="!isModelTypeRequired()"
+  [(matTooltip)]="tooltips.offspringSelection">
+    <option *ngFor="let survivorSelection of survivorSelection();let i = index" [value]="i">{{survivorSelection}}</option>
+  </select>
+  <div class="errorMsgColumn"></div>
+
+  <label for="crossoverSelection">Crossover</label>
+  <select class="form-control" (change)="onChangeCrossoverSelection($event.target.value)" [disabled]="!isModelTypeRequired()"
+  [(matTooltip)]="tooltips.crossoverSelection">
+    <option *ngFor="let crossover of selectedGeneticAlgorithmSelection.crossovers;let i = index" [value]="i">{{crossover}}</option>
+  </select>
+  <div class="errorMsgColumn"></div>
+  
+  <label for="mutationSelect">Mutation</label>
+  <select class="form-control" (change)="onChangeMutationSelection($event.target.value)" [disabled]="!isModelTypeRequired()"
+  [(matTooltip)]="tooltips.mutationSelection">
+    <option *ngFor="let mutation of selectedGeneticAlgorithmSelection.mutations;let i = index" [value]="i">{{mutation}}</option>
+  </select>
+  <div class="errorMsgColumn"></div>
+</div>
+    
+<label class="section-title">Genetic Algorithm Parameter</label>
+<div class="modularisation-form">
+    <label for="countPopulation">Population Size</label>
+    <input type="number" class="form-control" id="countPopulation" #countPopulation="ngModel"
+    required
+    [(ngModel)]="geneticAlgorithmParameter.countPopulation"
+    [(matTooltip)]="tooltips.populationSize">
+    <div class="errorMsgColumn">
+      <div *ngIf="countPopulation.invalid && (countPopulation.dirty || countPopulation.touched)" class="alert" >
+        <div *ngIf="countPopulation.errors?.required">
+          Population size is required.
+        </div>
+      </div>
+    </div>
+
+    <label for="mutationProbability">Mutation Probability</label>
+    <input type="number" class="form-control" id="mutationProbability" #mutationProbability="ngModel"  
+    min="0" max="1"
+    required
+    [(ngModel)]="geneticAlgorithmParameter.mutationProbability"
+    [(matTooltip)]="tooltips.mutationProbability">
+    <div class="errorMsgColumn">
+      <div *ngIf="mutationProbability.invalid && (mutationProbability.dirty || mutationProbability.touched)"
+      class="alert" >
+        <div *ngIf="mutationProbability.errors?.required">
+          Mutation probability is required.
+        </div>
+      </div>
+    </div>
+  
+    <label for="crossoverProbability">Crossover Probability</label>
+    <input type="number" class="form-control" id="crossoverProbability" #crossoverProbability="ngModel" 
+    min="0" max="1"
+    required
+    [(ngModel)]="geneticAlgorithmParameter.crossoverProbability"
+    [(matTooltip)]="tooltips.crossoverProbability">
+    <div class="errorMsgColumn">
+      <div *ngIf="crossoverProbability.invalid && (crossoverProbability.dirty || crossoverProbability.touched)"
+      class="alert" >
+        <div *ngIf="crossoverProbability.errors?.required">
+          Crossover probability is required.
+        </div>
+      </div>
+    </div>
+  
+    <label for="tournamentSize">Tournament Size</label>
+    <input type="number" class="form-control" id="tournamentSize" #tournamentSize="ngModel" 
+    min="0" max="1"
+    required
+    [(ngModel)]="geneticAlgorithmParameter.tournamentSize"
+    [(matTooltip)]="tooltips.tournamentSize">
+    <div class="errorMsgColumn">
+      <div *ngIf="tournamentSize.invalid && (tournamentSize.dirty || tournamentSize.touched)"
+      class="alert" >
+        <div *ngIf="tournamentSize.errors?.required">
+          Tournament size is required.
+        </div>
+      </div>
+    </div>
+</div>
+
+<label class="section-title">Termination</label>
+<div class="modularisation-form">
+  <label for="numberOfGenerations">Number of Generations</label>
+  <input type="number" class="form-control" id="numberOfGenerations" #numberOfGenerations="ngModel"
+  required
+  [(ngModel)]="geneticAlgorithmParameter.numberOfGenerations"
+  [(matTooltip)]="tooltips.numberOfGenerations">
+  <div class="errorMsgColumn">
+    <div *ngIf="numberOfGenerations.invalid && (numberOfGenerations.dirty || numberOfGenerations.touched)"
+    class="alert" >
+      <div *ngIf="numberOfGenerations.errors?.required"
+      [(matTooltip)]="tooltips.numberOfGenerations">
+        Number of generations is required.
+      </div>
+    </div>
+  </div>
+
+  <label for="convergedGeneRate">Converged Gene Rate</label>
+  <input type="number" class="form-control" id="convergedGeneRate" #convergedGeneRate="ngModel"
+  required
+  [(ngModel)]="geneticAlgorithmParameter.convergedGeneRate">
+  <div class="errorMsgColumn">
+    <div *ngIf="convergedGeneRate.invalid && (convergedGeneRate.dirty || convergedGeneRate.touched)"
+    class="alert" >
+      <div *ngIf="convergedGeneRate.errors?.required">
+        The percentage of converged genes for termination.
+      </div>
+    </div>
+  </div>
+
+  <label for="convergenceRate">Convergence Rate</label>
+  <input type="number" class="form-control" id="convergenceRate" #convergenceRate="ngModel"
+  required
+  [(ngModel)]="geneticAlgorithmParameter.convergenceRate">
+  <div class="errorMsgColumn">
+    <div *ngIf="convergenceRate.invalid && (convergenceRate.dirty || convergenceRate.touched)"
+    class="alert" >
+      <div *ngIf="convergenceRate.errors?.required">
+        The relative distance of average gene value to its maximum value.
+      </div>
+    </div>
+  </div>
+</div>
+
+<label class="section-title">Pareto Set Parameter</label>
+<div class="modularisation-form">
+  <label for="minimumParetoSetSize">Minimum Pareto Set Size</label>
+  <input type="number" class="form-control" id="minimumParetoSetSize" #minimumParetoSetSize="ngModel" 
+  required
+  [(ngModel)]="paretoSetParameter.minimumParetoSetSize"
+  [(matTooltip)]="tooltips.minimumParetoSetSize">
+  <div class="errorMsgColumn">
+    <div *ngIf="minimumParetoSetSize.invalid && (minimumParetoSetSize.dirty || minimumParetoSetSize.touched)"
+    class="alert" >
+      <div *ngIf="minimumParetoSetSize.errors?.required"
+      [(matTooltip)]="tooltips.minimumParetoSetSize">
+        Minimum Pareto set size is required.
+      </div>
+    </div>
+  </div>
+
+  <label for="maximumParetoSetSize">Maximum Pareto Set Size</label>
+  <input type="number" class="form-control" id="maximumParetoSetSize" #maximumParetoSetSize="ngModel" 
+  required
+  [(ngModel)]="paretoSetParameter.maximumParetoSetSize"
+  [(matTooltip)]="tooltips.maximumParetoSetSize">
+  <div class="errorMsgColumn">
+    <div *ngIf="maximumParetoSetSize.invalid && (maximumParetoSetSize.dirty || maximumParetoSetSize.touched)"
+    class="alert" >
+      <div *ngIf="maximumParetoSetSize.errors?.required">
+        Maximum Pareto set size is required.
+      </div>
+    </div>
+  </div>
+</div>
+
+<label class="section-title">Mutation Parameter</label>
+<div class="modularisation-form">
+  <label for="splitModulesWeight">Split Module Weight</label>
+  <input type="number" class="form-control" id="splitModulesWeight" #splitModulesWeight="ngModel" 
+  required
+  [(ngModel)]="mutationWeightParameter.splitModulesWeight"
+  [(matTooltip)]="tooltips.splitModulesWeight"
+  [(matTooltip)]="tooltips.splitModulesWeight">
+  <div class="errorMsgColumn">
+    <div *ngIf="splitModulesWeight.invalid && (splitModulesWeight.dirty || splitModulesWeight.touched)"
+    class="alert" >
+      <div *ngIf="splitModulesWeight.errors?.required">
+        Weight is required.
+      </div>
+    </div>
+  </div>
+
+  <label for="combineModulesWeight">Combine Modules Weight</label>
+  <input type="number" class="form-control" id="combineModulesWeight" #combineModulesWeight="ngModel" 
+  required
+  [(ngModel)]="mutationWeightParameter.combineModulesWeight"
+  [(matTooltip)]="tooltips.combineModulesWeight"
+  [(matTooltip)]="tooltips.combineModulesWeight">
+  <div class="errorMsgColumn">
+    <div *ngIf="combineModulesWeight.invalid && (combineModulesWeight.dirty || combineModulesWeight.touched)"
+    class="alert" >
+      <div *ngIf="combineModulesWeight.errors?.required">
+        Weight is required.
+      </div>
+    </div>
+  </div>
+
+  <label for="moveElementsBetweenModulesWeight">Move Elements Between Modules Weight</label>
+  <input type="number" class="form-control" id="moveElementsBetweenModulesWeight" #moveElementsBetweenModulesWeight="ngModel" 
+  required
+  [(ngModel)]="mutationWeightParameter.moveElementsBetweenModulesWeight"
+  [(matTooltip)]="tooltips.moveElementsBetweenModulesWeight">
+  <div class="errorMsgColumn">
+    <div *ngIf="moveElementsBetweenModulesWeight.invalid && (moveElementsBetweenModulesWeight.dirty || moveElementsBetweenModulesWeight.touched)"
+    class="alert" >
+      <div *ngIf="moveElementsBetweenModulesWeight.errors?.required">
+        Weight is required.
+      </div>
+    </div>
+  </div>
+</div>
+
+<label class="section-title">Conceptual Model Parameter</label>
+<div class="modularisation-form">
+  <label for="conceptualModelType">Meta Model Type</label>
+  <select class="form-control" (change)="onChangeMetaModel($event.target.value)" [disabled]="!isModelTypeRequired()"
+  [(matTooltip)]="tooltips.metaModelType">
+    <option *ngFor="let metaModel of metaModels;let i = index" [value]="i"> {{metaModel.label}} </option>
+  </select>
+  <div class="errorMsgColumn">
+  </div>
+
+  <label for="conceptualModelType">Conceptual Model Type</label>
+  <select class="form-control" (change)="onChangeConceptualModel($event.target.value)" [disabled]="!isModelTypeRequired()"
+  [(matTooltip)]="tooltips.conceptualModelType">
+    <option *ngFor="let conceptualModel of selectedMetaModel.conceptualModels;let i = index" [value]="i">{{conceptualModel}}</option>
+  </select>
+  <div class="errorMsgColumn">
+  </div>
+
+  <label for="isUseCustomEdgeWeights">Use Custom Edge Weights</label>
+  <input type="checkbox" [checked]="isUseCustomEdgeWeights" [(ngModel)]="isUseCustomEdgeWeights"
+  [(matTooltip)]="tooltips.isUseCustomEdgeWeights"/>
+</div>
+
+<div class="edge-weight-form" [hidden]="!isUseCustomEdgeWeights">
+  <label>Edge Weights</label>
+  <button class="hide-edge-weight-table-button" (click)="hideEdgeWeightTable($event.target)">Hide</button>
+  <table class="edge-weight-table" mat-table [dataSource]="edgeWeightDataSource" [hidden]="!isShowEdgeWeightTable"
+  [(matTooltip)]="tooltips.edgeWeightTable">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let edgeWeight">
+        <input matInput [(ngModel)]="edgeWeight.name"/>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="weight">
+      <th mat-header-cell *matHeaderCellDef> Weight </th>
+      <td mat-cell *matCellDef="let edgeWeight"> 
+        <input class="edge-weight-weight-input" matInput [(ngModel)]="edgeWeight.weight"/>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="deleteEdgeWeight">
+      <th mat-header-cell *matHeaderCellDef> Delete </th>
+      <td mat-cell *matCellDef="let i = index"> 
+        <button (click)="deleteEdgeWeight($event.target, i)"> Delete </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedEdgeWeightColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedEdgeWeightColumns;"></tr>
+  </table>
+  <div class="add-edge-weight" [hidden]="!isShowEdgeWeightTable">
+    <label class="add-edge-weight-element"> Name </label>
+    <input class="add-edge-weight-element" type="text" #edgeWeightName/>
+    <label class="add-edge-weight-element"> Weight </label> 
+    <input class="add-edge-weight-element"  type="number" #edgeWeight/>
+    <button class="add-edge-weight-element" (click)="addEdgeWeight($event, edgeWeightName.value, edgeWeight.value)"> Add new edge weight </button>
+  </div>
+</div>
+
+<label class="section-title">Objectives</label>
+<div class="modularisation-form">
+  <label for="splitModulesWeight">Number of Concepts Per Module</label>
+  <input type="number" class="form-control" id="splitModulesWeight" #splitModulesWeight="ngModel" 
+  required
+  [(ngModel)]="numberOfElementsPerModule"
+  [(matTooltip)]="tooltips.numberOfElementsPerModule">
+  <div class="errorMsgColumn">
+    <div *ngIf="splitModulesWeight.invalid && (splitModulesWeight.dirty || splitModulesWeight.touched)"
+    class="alert" >
+      <div *ngIf="splitModulesWeight.errors?.required">
+        Weight is required.
+      </div>
+    </div>
+  </div>
+
+  <label for="isUseWeightedSumMethod">Use the Weighted Sum Method</label>
+  <input type="checkbox" [checked]="isUseWeightedSumMethod" [(ngModel)]="isUseWeightedSumMethod"
+  [(matTooltip)]="tooltips.isUseWeightedSumMethod"/>
+</div>
+<div class="objectives-form">
+  <Button class="show-objectives-button" (click)="hideObjectivesTable($event.target)">Show Objectives</Button>
+  <table class="objectives-table" mat-table [dataSource]="objectivesDataSource" [hidden]="!isShowObjectivesTable"
+  [(matTooltip)]="tooltips.objectiveTable">
+    <ng-container matColumnDef="objectiveType">
+      <th mat-header-cell *matHeaderCellDef> Metric Type </th>
+      <td mat-cell *matCellDef="let objective"> {{objective.type}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="objectiveName">
+      <th mat-header-cell *matHeaderCellDef> Objective </th>
+      <td mat-cell *matCellDef="let objective"><div [innerHTML]="objective.name"></div> </td>
+    </ng-container>
+
+    <ng-container matColumnDef="objectiveWeight">
+      <th mat-header-cell *matHeaderCellDef> Weight </th>
+      <td mat-cell *matCellDef="let edgeWeight; let i = index"> 
+        <input class="objective-weight-input" type="number" matInput [(ngModel)]="objectivesDataSource[i].objectiveWeight"/>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="isSelected">
+      <th mat-header-cell *matHeaderCellDef> Selected </th>
+      <td mat-cell *matCellDef="let objective; let i = index"> 
+        <input type="checkbox" [(ngModel)]="objectivesDataSource[i].isSelected" (change)="checkNumberOfObjectivesSelected($event.target, i)"/>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedObjectiveColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedObjectiveColumns;"></tr>
+  </table>
+</div>
+
+<label class="section-title">File</label>
+<div class="modularisation-form">
+  <label for="conceptualModelType">Conceptual Model File</label>
+  <input type="file" accept=".xml, .archimate, .uml, .graphml" id="modularisationFileInput" (change)="handleModularisationFileInput($event.target.files)"
+  [(matTooltip)]="tooltips.conceptualModelFile"/>
+  <div></div>
+
+
+  <label for="dtdFile" [hidden]="!isADOxxSelected">Document Type Description File</label>
+  <div [hidden]="!isADOxxSelected"><input type="file" accept=".dtd" id="dtdFileInput" (change)="handleDtdFileInput($event.target.files)" 
+  [(matTooltip)]="tooltips.dtdFile" /></div>
+  <div [hidden]="!isADOxxSelected"></div>
+
+  <div></div>
+  <button id="modulsarise-button" (click)="modularise()" 
+  [disabled]="numberOfGenerations.errors?.required || 
+              countPopulation.errors?.required || 
+              mutationProbability.errors?.required || 
+              crossoverProbability.errors?.required || 
+              minimumParetoSetSize.errors?.required || 
+              maximumParetoSetSize.errors?.required ||
+              modularisationFileToUpload == null">Modularise</button>
+  <mat-progress-spinner id="progress-spinner" [diameter]="50" mode="indeterminate" *ngIf="spinnerService.visibility | async"></mat-progress-spinner>
+</div>

@@ -1,0 +1,28 @@
+version: '3'
+services:
+    backendservice:
+        container_name: backendservice
+        build:
+            context: ./backendservice
+            dockerfile: Dockerfile
+        image: backendservice:1.0
+        ports:
+            - 8080:8080
+        networks:
+            - local
+    semanticsapi:
+        container_name: semanticsapi
+        build:
+            context: ./semanticsapi
+            dockerfile: Dockerfile
+        image: semanticsapi:1.0
+        ports:
+            - 8081:8081
+        networks:
+            - local
+networks:
+    local:
+        driver: bridge
+volumes:
+  cassandra_data:
+    driver: local
