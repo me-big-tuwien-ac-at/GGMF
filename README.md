@@ -1,4 +1,7 @@
 # GGMF
+## Overview
+The application can be used to modularise conceptual models. Based on parameters, the application produces a set of modularisation solutions. The modularisation solution is a modularised knowledge graph to provide a generic solution for the various types of conceptual model. Parameters and settings are used to provide a configurability.
+
 ## Prerequisites
 The following prerequisites are needed to run the application:
 - Docker\
